@@ -1,0 +1,61 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "start",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "focus": false
+      },
+      "problemMatcher": [],
+      "label": "npm: start"
+    },
+    {
+      "type": "npm",
+      "script": "build",
+      "group": "none",
+      "presentation": {
+        "echo": true,
+        "reveal": "always"
+      },
+      "problemMatcher": [],
+      "label": "npm: build"
+    },
+    {
+      "type": "npm",
+      "script": "install",
+      "group": "none",
+      "presentation": {
+        "echo": true,
+        "reveal": "always"
+      },
+      "problemMatcher": [],
+      "label": "npm: install"
+    },
+    {
+      "type": "shell",
+      "command": "firebase deploy --only hosting",
+      "label": "Firebase: deploy hosting",
+      "presentation": {
+        "echo": true,
+        "reveal": "always"
+      },
+      "problemMatcher": []
+    },
+    {
+      "type": "shell",
+      "command": "git pull",
+      "label": "Git: Update from repo",
+      "presentation": {
+        "echo": true,
+        "reveal": "always"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
