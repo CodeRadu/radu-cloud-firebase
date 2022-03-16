@@ -1,7 +1,7 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
+import 'firebase/storage'
 
 const app = firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,
@@ -11,17 +11,25 @@ const app = firebase.initializeApp({
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
-});
+})
 
-const firestore = app.firestore();
-export const auth = app.auth();
+const firestore = app.firestore()
+export const auth = app.auth()
+export const storage = app.storage()
+
+// eslint-disable-next-line no-restricted-globals
+if (location.hostname === 'localhost') {
+  firestore.useEmulator('localhost', 9090)
+  auth.useEmulator('http://localhost:9099')
+  storage.useEmulator('localhost', 9199)
+}
+
 export const database = {
-  folders: firestore.collection("folders"),
-  files: firestore.collection("files"),
+  folders: firestore.collection('folders'),
+  files: firestore.collection('files'),
   formatDoc: (doc) => {
-    return { id: doc.id, ...doc.data() };
+    return { id: doc.id, ...doc.data() }
   },
   getCurrentTimestamp: firebase.firestore.FieldValue.serverTimestamp,
-};
-export const storage = app.storage();
-export default app;
+}
+export default app
