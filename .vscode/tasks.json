@@ -39,8 +39,8 @@
     },
     {
       "type": "shell",
-      "command": "firebase deploy --only hosting",
-      "label": "Firebase: deploy hosting",
+      "command": "firebase deploy",
+      "label": "Firebase: deploy ",
       "presentation": {
         "echo": true,
         "reveal": "always"
@@ -49,8 +49,8 @@
     },
     {
       "type": "shell",
-      "command": "git pull",
-      "label": "Git: Update from repo",
+      "command": "firebase emulators:start",
+      "label": "Firebase: start emulators",
       "presentation": {
         "echo": true,
         "reveal": "always"

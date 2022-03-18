@@ -19,7 +19,7 @@ export const storage = app.storage()
 
 // eslint-disable-next-line no-restricted-globals
 if (location.hostname === 'localhost') {
-  firestore.useEmulator('localhost', 9090)
+  firestore.useEmulator('localhost', 8080)
   auth.useEmulator('http://localhost:9099')
   storage.useEmulator('localhost', 9199)
 }
@@ -27,6 +27,7 @@ if (location.hostname === 'localhost') {
 export const database = {
   folders: firestore.collection('folders'),
   files: firestore.collection('files'),
+  users: firestore.collection('users'),
   formatDoc: (doc) => {
     return { id: doc.id, ...doc.data() }
   },

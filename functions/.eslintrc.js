@@ -1,3 +1,4 @@
+/* eslint-disable quote-props */
 module.exports = {
   root: true,
   env: {
@@ -5,10 +6,25 @@ module.exports = {
     node: true,
   },
   extends: [
-    "eslint:recommended",
-    "google",
+    'eslint:recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
+    'google',
+    'plugin:@typescript-eslint/recommended',
   ],
-  rules: {
-    quotes: ["error", "double"],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: ['tsconfig.json', 'tsconfig.dev.json'],
+    sourceType: 'module',
   },
-};
+  ignorePatterns: [
+    '/lib/**/*', // Ignore built files.
+  ],
+  plugins: ['@typescript-eslint', 'import'],
+  rules: {
+    'import/no-unresolved': 0,
+    semi: ['warn', 'never'],
+    indent: ['warn', 2],
+  },
+}
