@@ -5,7 +5,7 @@ import ForgotPassword from "./auth/ForgotPassword";
 import { AuthProvider } from "../contexts/AuthContext";
 import PrivateRoute from "./auth/PrivateRoute";
 import Dashboard from "./storage/Dashboard";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import NotFound from "./error/404";
 
 function App() {

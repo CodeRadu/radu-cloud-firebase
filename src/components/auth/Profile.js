@@ -31,9 +31,16 @@ function Profile() {
               <strong>Email:</strong> {currentUser.email}
               <br />
               <strong>Used Storage: </strong>
-              {(userData.used / 1024 / 1024).toFixed(2)}MB /{' '}
-              {userData.quota / 1024 / 1024}MB <br />
-              <Link to='/'>Dashboard</Link>
+              {(userData.used / 1024 / 1024).toFixed(2)} MB /{' '}
+              {userData.quota >= 0 ? userData.quota / 1024 / 1024 : '∞'} MB{' '}
+              <br />
+              <div className='w-100 text-center mt2'>
+                <Button href='/download/radu-cloud-desktop.exe'>
+                  Download the desktop version
+                </Button>
+                <br />
+                <Link to='/'>Dashboard</Link>
+              </div>
             </Card.Body>
           </Card>
           <div className='w-100 text-center mt-2'>
