@@ -77,7 +77,7 @@ function AddFileButton({ currentFolder }) {
     const used = userData.used
     const free = quota - used
     const file = e.target.files[0]
-    if (file.size > free) {
+    if (file.size > free && quota !== -1) {
       setOpen(true)
     } else handleUpload(e)
   }

@@ -21,8 +21,8 @@ export const onFileUpload = functions.storage
     const user = await (
       await admin.firestore().doc(`users/${userId}`).get()
     ).data()
-    const empty = user?.quota - user?.used
-    if (empty < size && object.name) {
+    const free = user?.quota - user?.used
+    if (free < size && object.name && user?.quota !== -1) {
       admin.storage().bucket().file(object.name).delete()
       return
     }
