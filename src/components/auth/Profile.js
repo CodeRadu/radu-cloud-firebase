@@ -35,7 +35,7 @@ function Profile() {
               {userData.quota >= 0 ? userData.quota / 1024 / 1024 : '∞'} MB{' '}
               <br />
               <div className='w-100 text-center mt2'>
-                <Button href='/download/radu-cloud-desktop.exe'>
+                <Button href='https://github.com/coderadu/radu-cloud-desktop/releases/latest'>
                   Download the desktop version
                 </Button>
                 <br />
