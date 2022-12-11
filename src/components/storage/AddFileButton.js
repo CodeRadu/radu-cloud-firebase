@@ -77,18 +77,18 @@ function AddFileButton({ currentFolder }) {
     const file = e.target.files[idx]
     handleUpload(file)
     setTimeout(() => {
-      if (e.target.files[idx + 1] == undefined) return
+      if (e.target.files[idx + 1] === undefined) return
       getFiles(e, idx + 1)
     }, 500)
   }
   function getTotalSize(e, idx = 0, total = 0) {
     const file = e.target.files[idx]
     const newSize = total + file.size
-    if (e.target.files[idx + 1] == undefined) return newSize
+    if (e.target.files[idx + 1] === undefined) return newSize
     return getTotalSize(e, idx + 1, newSize)
   }
   function checkUpload(e) {
-    if (e.target.files.length == 0) return
+    if (e.target.files.length === 0) return
     const quota = userData.quota
     const used = userData.used
     const free = quota - used
