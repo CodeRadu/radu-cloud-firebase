@@ -9,6 +9,7 @@ import File from './File'
 import { useParams } from 'react-router-dom'
 import FolderBreadcrumbs from './FolderBreadcrumbs'
 import { useAuth } from '../../contexts/AuthContext'
+import Loading from '../Loading'
 
 function Dashboard() {
   const { folderId } = useParams()
@@ -55,7 +56,7 @@ function Dashboard() {
           </Container>
         </>
       ) : (
-        'Loading'
+        <Loading />
       )}
     </>
   )

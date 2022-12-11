@@ -1,14 +1,15 @@
 import { Button, Card, Alert } from 'react-bootstrap'
-import { useHistory } from 'react-router'
+import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import CenteredContainer from './CenteredContainer'
+import Loading from '../Loading'
 
 function Profile() {
   const { logout, currentUser, userData } = useAuth()
   const [error, setError] = useState('')
-  const history = useHistory()
+  const history = useNavigate()
 
   async function handleLogout() {
     setError('')
@@ -50,7 +51,7 @@ function Profile() {
           </div>
         </CenteredContainer>
       ) : (
-        'Loading'
+        <Loading />
       )}
     </>
   )
