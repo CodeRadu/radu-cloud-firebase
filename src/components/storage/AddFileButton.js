@@ -15,11 +15,10 @@ function AddFileButton({ currentFolder }) {
   function closeModal() {
     setOpen(false)
   }
-  function handleUpload(e) {
-    const file = e.target.files[0]
+  function handleUpload(file) {
     if (currentFolder == null || file == null) return
     const id = uuidv4()
-    setUploadingFiles((prev) => [...prev, { id: id, progres: 0, error: false }])
+    setUploadingFiles((prev) => [...prev, { id: id, progress: 0, error: false, transMega: 0, totalMega: 0 }])
 
     const parentPath =
       currentFolder.path.length > 0 ? `${currentFolder.path.join('/')}` : ''
@@ -34,10 +33,12 @@ function AddFileButton({ currentFolder }) {
       'state_changed',
       (snapshot) => {
         const progress = snapshot.bytesTransferred / snapshot.totalBytes
+        const transMega = snapshot.bytesTransferred / 1024 / 1024
+        const totalMega = snapshot.totalBytes / 1024 / 1024
         setUploadingFiles((prev) => {
           return prev.map((uploadFile) => {
             if (uploadFile.id === id) {
-              return { ...uploadFile, progress: progress }
+              return { ...uploadFile, progress, transMega, totalMega }
             }
 
             return uploadFile
@@ -72,14 +73,29 @@ function AddFileButton({ currentFolder }) {
       }
     )
   }
+  function getFiles(e, idx = 0) {
+    const file = e.target.files[idx]
+    handleUpload(file)
+    setTimeout(() => {
+      if (e.target.files[idx + 1] == undefined) return
+      getFiles(e, idx + 1)
+    }, 500)
+  }
+  function getTotalSize(e, idx = 0, total = 0) {
+    const file = e.target.files[idx]
+    const newSize = total + file.size
+    if (e.target.files[idx + 1] == undefined) return newSize
+    return getTotalSize(e, idx + 1, newSize)
+  }
   function checkUpload(e) {
+    if (e.target.files.length == 0) return
     const quota = userData.quota
     const used = userData.used
     const free = quota - used
-    const file = e.target.files[0]
-    if (file.size > free && quota !== -1) {
+    const total = getTotalSize(e)
+    if (total > free && quota !== -1) {
       setOpen(true)
-    } else handleUpload(e)
+    } else getFiles(e)
   }
   return (
     <>
@@ -89,6 +105,7 @@ function AddFileButton({ currentFolder }) {
           type='file'
           onChange={checkUpload}
           style={{ opacity: '0', position: 'absolute', left: '-9999px' }}
+          multiple={true}
         />
       </label>
       <Modal show={open} onHide={closeModal}>
@@ -135,7 +152,7 @@ function AddFileButton({ currentFolder }) {
                   className='text-truncate w-100 d-block'
                   closeButton={file.error}
                 >
-                  Uploading
+                  Uploading {Math.round(file.transMega)}MB / {Math.round(file.totalMega)}MB
                 </Toast.Header>
                 <Toast.Body>
                   <ProgressBar
